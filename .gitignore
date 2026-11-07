@@ -26,3 +26,6 @@ reports/*
 # Downloaded model weights can be large; keep only the directory placeholder
 models/downloaded-model/*
 !models/downloaded-model/.gitkeep
+
+# Local llama.cpp runtime binaries and server output (downloaded, not source)
+runtime/
