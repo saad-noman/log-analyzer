@@ -18,6 +18,7 @@
 //    (cutting it would give the model a broken object). Its parsed fields are
 //    still available to deterministic correlation.
 //  - Plain text line: shortened token-exactly with a visible marker.
+import config from '../config/config.js';
 import model from './modelService.js';
 import tm from './tokenManager.js';
 
@@ -86,6 +87,24 @@ export async function buildChunks(entries, logTokens) {
   return { chunks, oversized };
 }
 
+/**
+ * Plans all chunks for one analysis from the REAL prompt that will be sent,
+ * so every request is guaranteed to fit the context window:
+ *
+ *   fixed prompt (measured) + context reserve + chunk (<= logTokens)
+ *   + reserved output + safety margin  <=  n_ctx
+ *
+ * The analyzer must fit its shared context into `budget.contextTokens`
+ * (tokenManager.fitContext) for the guarantee to hold.
+ * @param {Array} entries
+ * @param {{systemPrompt:string, userTemplate?:string, contextReserveTokens?:number, maxOutputTokens?:number}} prompt
+ */
+export async function planChunks(entries, { systemPrompt, userTemplate = '', contextReserveTokens = config.ai.contextReserveTokens, maxOutputTokens }) {
+  const budget = await tm.planBudget({ systemPrompt, userTemplate, contextTokens: contextReserveTokens, maxOutputTokens });
+  const { chunks, oversized } = await buildChunks(entries, budget.logTokens);
+  return { budget, chunks, oversized };
+}
+
 function makeChunk(index, entryIndices, parts, tokens, entries, text = parts.join(SEPARATOR)) {
   return {
     index,
@@ -97,4 +116,4 @@ function makeChunk(index, entryIndices, parts, tokens, entries, text = parts.joi
   };
 }
 
-export default { buildChunks, formatEntry };
+export default { planChunks, buildChunks, formatEntry };

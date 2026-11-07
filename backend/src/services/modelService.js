@@ -11,6 +11,7 @@
 //  - Timeouts (AbortController) and bounded retries for transient failures.
 import config from '../config/config.js';
 import logger from '../utils/logger.js';
+import { toUserMessage } from '../utils/userMessages.js';
 
 const ai = config.ai;
 
@@ -212,10 +213,11 @@ export async function checkHealth() {
       maxPromptTokens: promptBudget(),
       reservedOutputTokens: ai.reservedOutputTokens,
       model: props.model_path ?? null,
-      error: ok ? null : `Server n_ctx ${serverCtx} is smaller than configured ${ai.contextSize}`,
+      error: ok ? null : `The model server was started with a ${serverCtx}-token context; ${ai.contextSize} is required.`,
     };
   } catch (err) {
-    return { ok: false, error: err.message, code: err.code };
+    logger.debug(`Model health check failed: ${err.message}`); // technical detail stays in the log
+    return { ok: false, error: toUserMessage(err), code: err.code };
   }
 }
 

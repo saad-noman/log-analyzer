@@ -5,7 +5,8 @@
   "description": "Local AI-powered security log analysis application",
   "scripts": {
     "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev": "concurrently --kill-others --names model,api,ui --prefix-colors magenta,cyan,green \"npm run model\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:app": "concurrently --kill-others --names api,ui --prefix-colors cyan,green \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "model": "runtime\\llama.cpp\\llama-server.exe -m models/downloaded-model/qwen3.5-2b-Q4_K_M.gguf -c 2048 -t 2 -np 1 --cache-ram 0 --host 127.0.0.1 --port 8080 --no-webui"
