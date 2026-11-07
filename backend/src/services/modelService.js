@@ -84,6 +84,12 @@ export async function tokenize(text) {
   return data.tokens;
 }
 
+export async function detokenize(tokens) {
+  const data = await postJson('/detokenize', { tokens }, UTILITY_TIMEOUT_MS);
+  if (typeof data.content !== 'string') throw new ModelError('BAD_RESPONSE', '/detokenize returned no content');
+  return data.content;
+}
+
 export async function countTokens(text) {
   if (!text) return 0;
   return (await tokenize(text)).length;
@@ -213,4 +219,4 @@ export async function checkHealth() {
   }
 }
 
-export default { tokenize, countTokens, countMessageTokens, promptBudget, chat, checkHealth, ModelError };
+export default { tokenize, detokenize, countTokens, countMessageTokens, promptBudget, chat, checkHealth, ModelError };

@@ -41,11 +41,18 @@ const config = {
     requestTimeoutMs: num('AI_REQUEST_TIMEOUT_MS', 180000),
     maxRetries: num('AI_MAX_RETRIES', 2),
     maxFindingsPerChunk: num('AI_MAX_FINDINGS_PER_CHUNK', 10),
+    // Parallel /tokenize calls when counting many log lines (cheap, no inference).
+    tokenizeConcurrency: num('AI_TOKENIZE_CONCURRENCY', 4),
   },
 
   uploadDir: path.resolve(backendRoot, str('UPLOAD_DIR', '../uploads')),
   reportDir: path.resolve(backendRoot, str('REPORT_DIR', '../reports')),
   maxUploadBytes: num('MAX_UPLOAD_MB', 25) * 1024 * 1024,
+  allowedExtensions: str('ALLOWED_EXTENSIONS', '.log,.txt').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean),
+  // Bytes inspected to reject binary / non-UTF-8 files without reading them whole.
+  uploadSniffBytes: num('UPLOAD_SNIFF_BYTES', 64 * 1024),
+  // Parse issues stored per upload (the total count is always stored).
+  maxStoredIssues: num('MAX_STORED_ISSUES', 100),
 };
 
 // Token budget: the whole request (prompt + context + log chunk) may use at
