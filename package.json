@@ -1,0 +1,15 @@
+{
+  "name": "local-ai-security-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local AI-powered security log analysis application",
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
