@@ -39,10 +39,6 @@ React + Vite dashboard ──/api──► Express API ──► analysis queue 
 | Local inference | llama.cpp `llama-server` (CPU build), Qwen3.5-2B Q4_K_M GGUF |
 | Token counting | The model's own tokenizer and chat template (`/tokenize`, `/apply-template`) |
 
-**Deviations from the suggested stack (deliberate):**
-- **Node/Express instead of Python/FastAPI:** the project uses the MERN stack.
-- **MongoDB instead of SQLite:** a developer decision. Memory was measured to stay within 4 GB (see §9), and a cache cap is available.
-
 Backend modules (`backend/src/services/`):
 
 | Module | Responsibility |
