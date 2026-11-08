@@ -28,7 +28,7 @@ React + Vite dashboard ──/api──► Express API ──► analysis queue 
                                     │                  │
                                     │      parse ► chunk ► [correlate ► analyse ► validate ► save] × N ► report
                                     │                  │                      │
-                                 MongoDB  ◄────────────┘           llama-server (Qwen3.5-2B, 127.0.0.1:8080)
+                                 MongoDB  ◄────────────┘           llama-server (Qwen3.5-2B, Offline)
 ```
 
 | Layer | Technology |
