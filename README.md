@@ -66,8 +66,8 @@ Backend modules (`backend/src/services/`):
 | CPU | 2 vCPU is enough; no GPU needed |
 | RAM | 4 GB total for model + backend + database (measured peak below 2 GB, §9) |
 | Node.js | 22.5 or newer (tested with 24.15) |
-| MongoDB | Community Server running locally (default `mongodb://127.0.0.1:27017`) |
-| llama.cpp | A recent prebuilt CPU release with Qwen3.5 support (tested with **b12189**, `llama-bXXXX-bin-win-cpu-x64.zip` on Windows) |
+| MongoDB | Community Server running locally |
+| llama.cpp | A recent prebuilt CPU release with Qwen3.5 support |
 | Model | **Qwen3.5-2B** GGUF, **Q4_K_M** quantization (about 1.31 GB file) |
 
 ---
