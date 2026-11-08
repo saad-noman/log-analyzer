@@ -17,7 +17,6 @@ No cloud AI service is used. All findings come from the real model and real log 
 8. [Security and reliability](#8-security-and-reliability)
 9. [Resource usage](#9-resource-usage)
 10. [API reference](#11-api-reference)
-11. [Known limitations](#12-known-limitations)
 
 ---
 
