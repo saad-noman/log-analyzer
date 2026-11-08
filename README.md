@@ -6,20 +6,6 @@ No cloud AI service is used. All findings come from the real model and real log 
 
 ---
 
-## Contents
-1. [Architecture](#1-architecture)
-2. [Requirements](#2-requirements)
-3. [Installation and setup](#3-installation-and-setup)
-4. [Local model details and configuration](#4-local-model-details-and-configuration)
-5. [Usage](#5-usage)
-6. [Log splitting approach and token budget](#6-log-splitting-approach-and-token-budget)
-7. [Analysis, correlation and report](#7-analysis-correlation-and-report)
-8. [Security and reliability](#8-security-and-reliability)
-9. [Resource usage](#9-resource-usage)
-10. [API reference](#11-api-reference)
-
----
-
 ## 1. Architecture
 
 ```
