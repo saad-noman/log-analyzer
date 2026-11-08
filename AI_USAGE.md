@@ -11,7 +11,7 @@ This document records how AI was used to build this project. It covers the codin
 
 ## 2. Key coding prompts (developer → coding assistant)
 
-The work was done in small, verifiable steps. Each prompt asked the assistant to inspect the repository first, reuse existing modules, avoid hardcoding and keep the code explainable.
+The work was done in small, verifiable steps. Each prompt asked the assistant to inspect the repository first, reuse existing modules, avoid hardcoding and keep the code explainable. Only 47% Claude code session of a single context window was used to build the entire project.
 
 1. *Understand the brief and the repository state; the stack is MERN with Qwen3.5 2B through llama.cpp (not Ollama).*
 2. *Inspect the project, list completed / incomplete / missing parts, create a checklist and recommend the next step.*
