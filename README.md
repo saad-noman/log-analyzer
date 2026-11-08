@@ -120,7 +120,7 @@ llama-server -m models/downloaded-model/qwen3.5-2b-Q4_K_M.gguf -c 2048 -t 2 -np 
 | `-t 2` | Matches the 2 vCPU constraint |
 | `-np 1` | One slot, so requests never run in parallel |
 | `--cache-ram 0` | Disables the host prompt cache so memory cannot grow over time |
-| `--host 127.0.0.1` | The model is reachable only from this machine |
+| `--host 127.0.0.1` | The model is reachable only from the local machine |
 
 Qwen3.5 "thinks" by default. Every request sends `chat_template_kwargs: { enable_thinking: false }`, so the small output budget is not spent on reasoning text.
 
