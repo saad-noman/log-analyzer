@@ -217,19 +217,7 @@ Every finding has `attack_type`, `severity`, `ip_or_identifier`, `evidence[{line
 
 ---
 
-## 8. Security and reliability
-
-- **Untrusted logs and prompt injection:** llama.cpp parses chat control strings such as `<|im_end|><|im_start|>system` inside message content as real control tokens. All log-derived text (chunks, facts, context) passes `neutralizeUntrusted()`, which breaks these tokens and reasoning tags. The log is also fenced by markers it cannot forge. Instruction-like log entries are reported as *possible log injection*.
-- **Output guardrails:** model text is sanitised (markup, control tokens and control characters removed; length capped). An answer that itself contains instruction-like text is rejected as a possibly successful injection.
-- **No command execution:** there is no shell, `eval` or dynamic code path for log or model content. Suggested actions are only displayed. The one `execFile` call (resource monitor) uses a fixed command with no user input.
-- **Uploads:** streamed to disk (never held in RAM), random file names (no path traversal), extension allow-list, size limit, and binary/encoding sniffing.
-- **Failures:** timeouts and retries with backoff; failed chunks are recorded, never silently skipped. If the model stops responding, the job stops early and keeps completed work. Retrying is idempotent (fingerprinted findings, once-only correlation per chunk). Interrupted jobs resume on server start.
-- **Errors shown to users** are plain-language messages; technical details go to the server log only.
-- **HTTP:** API and model bound to `127.0.0.1`; basic security headers; `X-Powered-By` disabled.
-
----
-
-## 9. Resource usage
+## 8. Resource usage
 
 Measured during real analyses by the built-in resource monitor (resident memory):
 
@@ -244,7 +232,7 @@ Only one model request runs at a time, so there is exactly one set of model buff
 
 ---
 
-## 10. Testing performed
+## 9. Testing performed
 
 All results below were produced against the live local model and MongoDB on the target constraints (2 threads, ctx 2048).
 
@@ -277,7 +265,7 @@ All results below were produced against the live local model and MongoDB on the 
 
 ---
 
-## 11. API reference
+## 10. API reference
 
 | Method & path | Purpose |
 |---|---|
