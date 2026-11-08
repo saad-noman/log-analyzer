@@ -232,26 +232,7 @@ Only one model request runs at a time, so there is exactly one set of model buff
 
 ---
 
-## 9. Testing performed
-
-All results below were produced against the live local model and MongoDB on the target constraints (2 threads, ctx 2048).
-
-**Large end-to-end test through the HTTP API** (same calls as the UI): a generated log of **392 lines / 28,127 tokens** containing normal traffic, all five attack categories, a brute force spread over the whole file, invalid JSON, a multi-line entry, an unterminated last object and a prompt-injection line.
-
-| Check | Result |
-|---|---|
-| Upload & parsing | 384 entries; invalid JSON flagged at L358; unterminated object at L392 reported and dropped; multi-line entry kept with its line range |
-| Token limits | 32 chunks of ≤ 970 log tokens; **largest full prompt 1,520 + 384 output = 1,904 ≤ 2,048** |
-| Run | 32/32 chunks completed, 0 failed, about 15 min (about 25 s per chunk) |
-| **Cross-chunk brute force** | **One** High finding for 192.168.1.50 with evidence from chunks 4, 8, 15 (L41-45, L91-95, L216-220) **and the successful login at L356** (chunk 30), fact: *successful authentication after 15 consecutive failures* |
-| SQL injection | Detected (203.0.113.7, L136-138) and labelled *SQL Injection* |
-| Scanning / reconnaissance | Detected (45.33.1.9, 12 probe paths, L169-180). The label varied (*XSS* in this run) |
-| Unusual request rate | Detected (198.51.100.23, 70 requests in about 70 s, volume outlier). Labelled *Reconnaissance* |
-| Unauthorized access | Detected (172.16.0.99): 4 × 403 on `/admin/users` then access granted at L325 (*access after denial* fact) |
-| Prompt injection in the log | Did not suppress any finding; reported itself as *Log Injection* (6.6.6.6, L357) |
-| Peak memory (measured) | **1,612 MB** (model 1,471 · backend 83 · MongoDB 58) of 4,096 |
-
-**Targeted tests**
+## 9. Targeted tests
 
 | Area | Result |
 |---|---|
